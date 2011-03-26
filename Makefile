@@ -2,7 +2,7 @@ CXXFLAGS =	-O2 -g -Wall -fmessage-length=0
 	
 OBJDIR = ../bin
 
-OBJECTS = $(addprefix $(OBJDIR)/, cTime_t.o)
+OBJECTS = $(addprefix $(OBJDIR)/, cTime_t.o main.o)
 
 
 LIBS =
