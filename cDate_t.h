@@ -18,8 +18,8 @@ public:
 	cDate_t(const cDate_t& cDate_t);						//copy CTOR
 	~cDate_t();												//DTOR
 
-	const cDate_t& operator=(const cDate_t& cDate_t);		//assignment operator overload
-	const cDate_t& operator+(const cDate_t& cDate_t);		//adding operator
+	const cDate_t& operator=(const cDate_t& t);				//assignment operator overload
+	const cDate_t& operator+(const cDate_t& t);				//adding operator
 
 	void setDate(int hours, int minutes, int seconds);		//set a new date
 
@@ -44,7 +44,7 @@ private:
 	int month;
 	int year;
 
-	static const int daysInMonth[];							//Num of days in standard (non-Leap Year)
+	static const int daysInMonth[];							//Num of days in standard (non-Leap) Yearm
 	static const string cDate_t::dayNames[];
 	static const string cDate_t::months[];
 
@@ -53,5 +53,35 @@ private:
 	void setDate_p(int d, int m, int y);
 
 };
+
+
+/*******************
+ * Inline functions
+ *******************/
+inline int cDate_t::getDay() const
+{
+	return day;
+}
+
+inline int cDate_t::getMonth() const
+{
+	return month;
+}
+
+inline int cDate_t::getYear() const
+{
+	return year;
+}
+
+inline string cDate_t::getNameOfMonth() const
+{
+	return months[month - 1];
+}
+
+inline bool cDate_t::isYearLeap() const
+{
+	return (year % 4) == 0;
+}
+
 
 #endif

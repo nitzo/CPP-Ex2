@@ -11,7 +11,9 @@ using namespace std;
  *****************/
 int cDate_t::format = 1;
 
+//Days in month i - 1 in non-Leap year
 const int cDate_t::daysInMonth[] = { 31,28,31,30,31,30,31,31,30,31,30,31 };
+
 const string cDate_t::dayNames[] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 const string cDate_t::months[] = { "January", "February", "March", "April", "May", "June", "July", "August",
        "September", "October", "November", "December"};
@@ -48,9 +50,15 @@ cDate_t::~cDate_t()
  * Operators
  *************/
 
-const cDate_t& cDate_t::operator=( const cDate_t& cDate_t )
+const cDate_t& cDate_t::operator=( const cDate_t& t )
 {
-	//TODO: implement
+	if (this != &t){
+		day = t.getDay();
+		month = t.getMonth();
+		year = t.getYear();
+	}
+
+	return *this;
 }
 
 const cDate_t& cDate_t::operator+( const cDate_t& cDate_t )
@@ -102,40 +110,34 @@ void cDate_t::printDate( int format ) const
 	}
 }
 
-int cDate_t::getDay() const //TODO: Inline
-{
-	return day;
-}
-
-int cDate_t::getMonth() const //TOOO: Inline
-{
-	return month;
-}
-
-int cDate_t::getYear() const //TOOO: Inline
-{
-	return year;
-}
 
 int cDate_t::getDayOfTheYear() const
 {
-	//TODO: implement
+	int count = 0;
+
+	//Add days of previous months
+	for (int i = 0; i < month - 1; i++){
+		count += daysInMonth[i];
+	}
+
+	//Add days of current month
+	count += day;
+
+	//If year is a leap year & after February add one more day
+	if (isYearLeap() && month > 2){
+		count++;
+	}
+
+	return count;
 }
 
-bool cDate_t::isYearLeap() const //TODO: Inline
-{
-	return (year % 4) == 0;
-}
 
 string cDate_t::getNameOfDay() const
 {
 	//TODO: implement
 }
 
-string cDate_t::getNameOfMonth() const //TODO: Inline
-{
-	return months[month - 1];
-}
+
 
 /******************
  * Private Methods
@@ -152,11 +154,7 @@ void cDate_t::setDate_p(int d, int m, int y)
 		//TODO: What to do??
 	}
 
-	int tmp;
-
-
-
-
+	//TODO: Set date
 }
 
 
