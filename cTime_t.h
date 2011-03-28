@@ -1,8 +1,14 @@
+//
+// cTime_t.h
+//
+// assumption from HW & VirtualTau Forum:
+// ***********************************
+// 1. accumulate the time if overflow
+// 2. CTOR gets only valid values
+//
 
 #ifndef _CTIME_T_H_
 #define _CTIME_T_H_
-
-
 
 class cTime_t {
 
@@ -13,7 +19,7 @@ public:
 
 	cTime_t();						//Default CTOR from Current Time
 	cTime_t(int h, int m, int s);	//CTOR from Hours, Minutes and Seconds
-	cTime_t(cTime_t& t);			//Copy CTOR									
+	cTime_t(const cTime_t& t);			//Copy CTOR
 	~cTime_t();						//DTOR		
 
 	const cTime_t& operator=(const cTime_t &t);

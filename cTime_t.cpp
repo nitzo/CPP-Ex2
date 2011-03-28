@@ -8,13 +8,11 @@ using namespace std;
 /******************
  * Static Members
  ******************/
-int cTime_t::format = 1;			//Defualt format setting
+int cTime_t::format = 1;			//Default format setting
 
 /****************
  * CTORs and DTOR
  ****************/
-
-//TODO: Initialazation lists?
 
 cTime_t::cTime_t() {
 
@@ -22,7 +20,7 @@ cTime_t::cTime_t() {
 	time_t time_data;
 	struct tm* current_time;
 
-	time_data = time(0);
+	time( &time_data);
 	current_time = localtime(&time_data);
 
 	setTime_p(current_time->tm_hour, current_time->tm_min, current_time->tm_sec);
@@ -33,7 +31,7 @@ cTime_t::cTime_t(int h, int m, int s) {
 	setTime_p(h,m,s);
 }
 
-cTime_t::cTime_t(cTime_t& t) {
+cTime_t::cTime_t(const cTime_t& t) {
 
 	setTime_p(t.getHours(), t.getMinutes(), t.getSeconds());
 
@@ -59,7 +57,7 @@ const cTime_t& cTime_t::operator=(const cTime_t &t) {
 	return *this;
 }
 
-const cTime_t& cTime_t::operator+(const cTime_t &t) {  //TODO: Should we change this object?
+const cTime_t& cTime_t::operator+(const cTime_t &t) {
 
 	addTime_p(t.getHours(), t.getMinutes(), t.getSeconds());
 
@@ -132,40 +130,20 @@ void cTime_t::printTime(int f) const{
  * Take care of overflows (s < 60, m < 60, h < 24)
  */
 void cTime_t::addTime_p(int h, int m, int s) {
-
-
-	if (s < 0 || m < 0 || h < 0){
-		//TODO: Set defualt value? Throw exception?
-	}
-
-	int tmp = 0;
-
+	
 	//Set seconds
-	while (s >= 60){
-		tmp++;
-		s -= 60;
-	}
-
-	this->seconds += s;
+	s += seconds;
+	seconds = s % 60;
+	m += int(s/60);
 
 	//Set minutes
-	m += tmp;
-	tmp = 0;
-
-	while (m >= 60){
-		tmp++;
-		m -= 60;
-	}
-
-	this->minutes += m;
+	m += minutes;
+	minutes = m % 60;
+	h += int(m/60);
 
 	//Set hours
-	h += tmp;
-	this->hours += h;
-
-	while (this->hours >= 24){ //TODO: What to do in case of over flow in days?
-		this->hours -= 24;
-	}
+	h += hours;
+	hours = h % 24;
 }
 
 /*
@@ -181,7 +159,13 @@ void cTime_t::zeroTime(){
  * Set current time as h:m:s . (Takes care of overflows)
  */
 void cTime_t::setTime_p(int h, int m, int s){
+
 	zeroTime();
+	//case value invalid set to default value 00:00:00
+	if (s < 0 || m < 0 || h < 0){
+		return;
+	}
+
 	addTime_p(h,m,s);
 }
 
