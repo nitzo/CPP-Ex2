@@ -76,36 +76,37 @@ void cDate_t::printDate() const
 	printDate(format);
 }
 
-void cDate_t::printDate( int format ) const
-{
+void cDate_t::printDate (int format) const {
+
 	switch (format){
 
-		case 1:
-			cout << setfill('0');
-			cout << setw(2) << getDay() << '/'
-				 << getNameOfMonth().substr(0, 3) << '/'
-				 << getYear() << endl;
-			break;
-		case 2: //European
-			cout << setfill('0');
-			cout << setw(2) << getDay() << '/'
-				 << setw(2) << getMonth() << '/'
-				 << getYear() << "	European"
-				 << endl;
-			break;
+			case 1:
+				cout << setfill('0');
+				cout << setw(2) << getDay() << '/'
+					 << getNameOfMonth().substr(0, 3) << '/'
+					 << getYear();
+				break;
+			case 2: //European
+				cout << setfill('0');
+				cout << setw(2) << getDay() << '/'
+					 << setw(2) << getMonth() << '/'
+					 << getYear() << "	European";
 
-		case 3: //American
-			cout << setfill('0');
-			cout << setw(2) << getMonth() << '/'
-				 << setw(2) << getDay() << '/'
-				 << getYear() << "	American"
-				 << endl;
-				 
-			break;
-		default:
-			cout << "Unknown format" << endl;
+				break;
 
-	}
+			case 3: //American
+				cout << setfill('0');
+				cout << setw(2) << getMonth() << '/'
+					 << setw(2) << getDay() << '/'
+					 << getYear() << "	American";
+
+
+				break;
+			default:
+				cout << "Unknown format";
+
+		}
+
 }
 
 
@@ -186,8 +187,6 @@ void cDate_t::setTime_info()
 	mktime(time_info);
 
 }
-
-
 
 
 

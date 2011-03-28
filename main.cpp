@@ -4,15 +4,14 @@
  */
 #include "cTime_t.h"
 #include "cDate_t.h"
-#include "cTimeDate_t.h"
+#include "cDateTime_t.h"
 #include <iostream>
 
 using namespace std;
 
 cTime_t time1, time2;
 cDate_t date1, date2;
-cTimeDate_t dateTime1(time1, date1);
-cTimeDate_t dateTime2(dateTime1);
+cDateTime_t dateTime1;
 int i,h,m,s,d,mo,y;
 char c;
 
@@ -55,20 +54,21 @@ int main (int argc, int **argv){
 			<< "9  - get the day 			10 - get the month \n"
 			<< "11 - get the year  			12 - get the day of the year \n"
 			<< "13 - is year leap			14 - get name of the day \n"
-			<< "15 - get name of the month		16 - exit program \n"
+			<< "15 - get name of the month"
 			<< "\n"
 			<< "DateTime command list: \n"
 			<< "********************** \n"
+			<< "16 - Set Date time object\n"
 			<< "17 - Add time object to DateTime \n"
 			<< "\n"
+			<< "18 - Exit Program\n\n"
 			<< "Member status: \n"
 			<< "************** \n"
-			<< "time1: "; time1.printTime();	
-			cout << "time2: "; time2.printTime();
-			cout << "date1: "; date1.printDate();
-			cout << "date2: "; date2.printDate();
+			<< "time1: "; time1.printTime(); cout << endl;
+			cout << "time2: "; time2.printTime(); cout << endl;
+			cout << "date1: "; date1.printDate(); cout << endl;
+			cout << "date2: "; date2.printDate(); cout << endl;
 			cout << "dateTime1: "; dateTime1.print();
-			cout << "dateTime2: "; dateTime2.print();
 			cout << "\n"
 			<< "enter command number: ";
 
@@ -144,8 +144,20 @@ int main (int argc, int **argv){
 					cout << dateObj.getNameOfMonth() << "\n \n";
 					continue;
 			}
+		}else if (i >= 16 && i <= 17){
+			switch (i){
+
+				case 16:
+
+					dateTime1.time_p = getTimeObject();
+					dateTime1.date_p = getDateObject();
+					continue;
+				case 17:
+					dateTime1 = dateTime1 + getTimeObject();
+					continue;
+			}
 		}else{
-			if (i == 16)
+			if (i == 18)
 			{
 				exit(0);
 			}

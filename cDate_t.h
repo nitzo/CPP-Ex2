@@ -61,7 +61,7 @@ private:
 	void setDate_p( int d, int m, int y );
 	void setTime_info();
 
-//	void setDate_p(int d, int m, int y,int dayOfYear);
+
 
 };
 

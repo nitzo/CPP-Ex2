@@ -86,7 +86,7 @@ void cTime_t::printTime(int f) const{
 			cout << setfill('0');
 			cout << setw(2) << getHours() << ':'
 				 << setw(2)	<< getMinutes() << ':'
-				 << setw(2) << getSeconds() << endl;
+				 << setw(2) << getSeconds();
 			break;
 		case 2:
 			if (getHours() > 12)
@@ -106,13 +106,11 @@ void cTime_t::printTime(int f) const{
 				cout << "AM";
 
 
-			cout << endl;
-
 			break;
 
 		default: //Unknown format...
 
-			cout << "Unknown format!" << endl;
+			cout << "Unknown format!";
 
 			break;
 
